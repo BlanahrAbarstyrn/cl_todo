@@ -24,3 +24,27 @@ rl.question("What is your name? ", (answer) => {
     console.log(`Hello, ${answer}`);
     rl.close();
 });
+
+interface Tag {
+    name: string;
+}
+
+interface Task {
+    taskDescription: string;
+    taskPriority: "today" | "this week" | "this month" | "whenever" | "ASAP!!!";
+    isComplete: boolean;
+    subTasks: Task[];
+    tags: Tag[];
+}
+
+interface Project {
+    projectName: string;
+    projectDescription?: string;
+    tasks: Task[];
+    tags: Tag[];
+}
+
+interface User {
+    username: string;
+    projects: Project[];
+}
