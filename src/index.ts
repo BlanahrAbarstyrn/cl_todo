@@ -26,22 +26,45 @@ const rl = readline.createInterface({
 });
 
 // Main Menu
-console.log(" 1. Create User");
-console.log(" 2. Load User");
-console.log(" 3. Delete User");
-console.log(" 4. Help Menu");
-console.log(" 5. Quit");
-console.log("===================");
-promptMenu();
+function printMainMenu() {
+    console.log(" 1. Create User");
+    console.log(" 2. Load User");
+    console.log(" 3. Delete User");
+    console.log(" 4. Help Menu");
+    console.log(" 5. Quit");
+    console.log("===================");
+}
 
 function promptMenu() {
     rl.question("Enter numeric selection ", (answer) => {
-        if (["1", "2", "3", "4", "5"].includes(answer)) {
-            console.log("We hope you enjoy your trip through this door");
+        if (answer === "1") {
+            //call create user menue
+            console.log("...creating user...");
             rl.close();
+        } else if (answer === "2") {
+            // load user code here
+            console.log("...loading user...");
+            rl.close();
+        } else if (answer === "3") {
+            // deleting user code here
+            console.log("...deleting user...");
+            rl.close();
+        } else if (answer === "4") {
+            // call the help menu
+            console.log("...help menu under construction...Sorry!");
+            rl.close();
+        } else if (answer === "5") {
+            console.log("Goodbye!");
+            rl.close();
+            process.exit(0);
         } else {
           console.log("Invalid option. Please try again.");
           promptMenu(); // ask again!
         }
     });
 }
+
+
+// main loop
+printMainMenu();
+promptMenu();
