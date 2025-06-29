@@ -1,19 +1,13 @@
 // src/index.ts
 import readline from "readline";
+import { Tag, Task, Project, User } from "./types";
+import { loadUsers, saveUsers, deleteUser } from "./data";
 
-// set up filesystem
-import fs from "fs";
-const DATA_FILE = "users.json";
-
-// check if data file exists
-if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, "[]");
-}
 
 // testing setup
 //console.log("Setup Successful!");
 
-
+/*
 // testing interacting with command line
 const rl = readline.createInterface({
     input: process.stdin,
@@ -24,27 +18,30 @@ rl.question("What is your name? ", (answer) => {
     console.log(`Hello, ${answer}`);
     rl.close();
 });
+*/
 
-interface Tag {
-    name: string;
-}
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 
-interface Task {
-    taskDescription: string;
-    taskPriority: "today" | "this week" | "this month" | "whenever" | "ASAP!!!";
-    isComplete: boolean;
-    subTasks: Task[];
-    tags: Tag[];
-}
+// Main Menu
+console.log(" 1. Create User");
+console.log(" 2. Load User");
+console.log(" 3. Delete User");
+console.log(" 4. Help Menu");
+console.log(" 5. Quit");
+console.log("===================");
+promptMenu();
 
-interface Project {
-    projectName: string;
-    projectDescription?: string;
-    tasks: Task[];
-    tags: Tag[];
-}
-
-interface User {
-    username: string;
-    projects: Project[];
+function promptMenu() {
+    rl.question("Enter numeric selection ", (answer) => {
+        if (["1", "2", "3", "4", "5"].includes(answer)) {
+            console.log("We hope you enjoy your trip through this door");
+            rl.close();
+        } else {
+          console.log("Invalid option. Please try again.");
+          promptMenu(); // ask again!
+        }
+    });
 }
