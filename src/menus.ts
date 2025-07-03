@@ -88,8 +88,8 @@ export function promptMenu() {
         } else if (answer === "3") {
             // delete user
             console.log("\n...deleting user...");
-            printMainMenu();
-            promptMenu();
+            Data.deleteUser();
+            return;
         } else if (answer === "4") {
             // call the help menu
             console.log("\n...help menu under construction...Sorry!");

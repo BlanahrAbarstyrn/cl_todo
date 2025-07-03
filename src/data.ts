@@ -40,6 +40,7 @@ export function chooseUserMenu() {
     Users.forEach((user, idx) => {
         console.log(`${idx + 1}. ${user.username}`);
     });
+    
     rl.question("\nEnter the number of the user to select, or c to cancel: ", (answer) => {
         if (answer.toLowerCase() === "c") {
             Menus.cancel();
@@ -94,8 +95,36 @@ export function saveUsers(users: Types.User[]): void {
 }
 
 
-export function deleteUser(username: string): void {
-    // Load all users,
-    // remove the one whose username matches,
-    // save the array back to users.json
+export function deleteUser() {
+    if (Users.length === 0) {
+        console.log("No users to delete.");
+        Menus.cancel();
+        return;
+    }
+    console.log("\nSelect a user to delete:");
+    Users.forEach((user, idx) => {
+    console.log(`${idx + 1}. ${user.username}`);
+    });
+
+    rl.question("Enter the number of the user to delete, or 'c' to cancel: ", (answer) => {
+        if (answer.toLowerCase() === "c") {
+            Menus.cancel();
+            return;
+        }
+    const index = parseInt(answer) - 1;
+    if (isNaN(index) || index < 0 || index >= Users.length) {
+        console.log("Invalid selection. Please try again.");
+        deleteUser();
+        return;
+    }
+    // If deleting current user, reset it to null
+    if (currentUser && Users[index].username === currentUser.username) {
+      setCurrentUser(null);
+    }
+    // Remove user and save
+    Users.splice(index, 1);
+    saveUsers(Users);
+    console.log("User deleted.");
+    Menus.cancel();
+  });
 }
